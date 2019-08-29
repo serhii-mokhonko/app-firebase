@@ -1,6 +1,13 @@
+import * as fb from 'firebase'
 export default {
-	state: {},
+	state: {
+		
+	},
 	mutations: {},
-	actions: {},
+	actions: {
+		addNewPost(){
+
+		}
+	},
 	getters: {}
 }

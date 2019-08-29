@@ -9,6 +9,9 @@
               <router-link tag='li' :to='{ name: "home"}' class="nav-item" v-if="isUserLoggedIn">
                 <a class="nav-link">Home</a>
               </router-link>
+              <router-link tag='li' :to='{ name: "addNewPost"}' class="nav-item" v-if="isUserLoggedIn">
+                <a class="nav-link">New Post</a>
+              </router-link>
               <router-link tag='li' :to='{ name: "register"}' class="nav-item" v-if="!isUserLoggedIn">
                 <a class="nav-link">Register</a>
               </router-link>
@@ -42,7 +45,7 @@
     <b-alert 
       show 
       variant="danger"
-      class="mt-1" 
+      class="mt-1"
       v-if="error"
     >
       {{error}}
