@@ -1,17 +1,7 @@
 <template>
-	<div class="container">
-		<div class="row">
-			<p>HOME PAGE</p>
-		</div>
-	</div>
+	<p>HOME PAGE</p>
 </template>
 
 <script>
 	
 </script>
-
-<style>
-	body{
-		background: #ccc;
-	}
-</style>

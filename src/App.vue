@@ -1,28 +1,32 @@
 <template>
 <div id="app">
   <div class="container">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <router-link tag='li' :to='{ name: "home"}' class="nav-item" v-if="isUserLoggedIn">
-            <a class="nav-link">Home</a>
-          </router-link>
-          <router-link tag='li' :to='{ name: "register"}' class="nav-item" v-if="!isUserLoggedIn">
-            <a class="nav-link">Register</a>
-          </router-link>
-          <router-link tag='li' :to='{ name: "login"}' class="nav-item" v-if="!isUserLoggedIn">
-            <a class="nav-link">Login</a>
-          </router-link>
-          <li class="nav-item" v-if="isUserLoggedIn">
-            <a class="nav-link" @click='logoutUser'>Logout</a>
-          </li>
-        </ul>
+    <div class="row">
+      <div class="col-12">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <router-link tag='li' :to='{ name: "home"}' class="nav-item" v-if="isUserLoggedIn">
+                <a class="nav-link">Home</a>
+              </router-link>
+              <router-link tag='li' :to='{ name: "register"}' class="nav-item" v-if="!isUserLoggedIn">
+                <a class="nav-link">Register</a>
+              </router-link>
+              <router-link tag='li' :to='{ name: "login"}' class="nav-item" v-if="!isUserLoggedIn">
+                <a class="nav-link">Login</a>
+              </router-link>
+              <li class="nav-item" v-if="isUserLoggedIn">
+                <a class="nav-link" @click='logoutUser'>Logout</a>
+              </li>
+            </ul>
+          </div>
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
       </div>
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </nav>
+    </div>
 
     <b-alert
       v-if="newUser"
@@ -46,10 +50,12 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </b-alert>
-  
+    <div class="row">
+      <div class="col-12">
+        <router-view></router-view>
+      </div>
+    </div>
   </div>
-  
-  <router-view></router-view>
 </div>
 </template>
 
@@ -86,5 +92,9 @@ export default {
 </script>
 
 <style>
+
+body{
+  background: #ccc;
+}
 
 </style>

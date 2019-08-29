@@ -1,5 +1,5 @@
 <template>
-<div class="row d-flex justify-content-center">
+<div class="col-12 d-flex justify-content-center">
 	<div class="card mt-1" style="width: 350px">
   		<div class="card-header">
   			<h2>Register user</h2>
