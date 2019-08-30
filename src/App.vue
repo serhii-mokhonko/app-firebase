@@ -53,11 +53,9 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </b-alert>
-    <div class="row">
-      <div class="col-12">
-        <router-view></router-view>
-      </div>
-    </div>
+    
+    <router-view></router-view>
+  
   </div>
 </div>
 </template>
