@@ -15,16 +15,17 @@
 						<label for="FormBodyTextarea">Description</label>
 						<textarea class="form-control" id="FormBodyTextarea" rows="5" v-model="newPost.description"></textarea>
 					</div>
-					<!-- <div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-						</div>
+					<div class="input-group mb-3">
 						<div class="custom-file">
 							<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
 							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 						</div>
-					</div> -->
-					<button class="btn btn-sm btn-primary" style="width: 75px" type="button" @click.prevent="sendData">
+					</div>
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input" id="customSwitch">
+						<label class="custom-control-label" for="customSwitch">Promo (add to slider)</label>
+					</div>
+					<button class="btn btn-sm btn-primary mt-2" style="width: 100px" type="button" @click.prevent="sendData">
 						<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" v-if="isLoading"></span>
 						Send
 					</button>
