@@ -16,19 +16,21 @@
 				:key="post.id"
 				:caption="post.title"
 				:img-src="post.img"
+				:interval="3000"
 		  	>
 		  	</b-carousel-slide>
 		  </b-carousel>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-12 col-md-4 mt-1" v-for="post of posts" :key="post.id">
+		<div class="col-sm-12 col-md-6 col-lg-4 mt-1" v-for="post of posts" :key="post.id">
 			<div class="card">
 				<img :src="post.img" class="card-img-top">
 				<div class="card-body">
 					<h5 class="card-title">{{ post.title }}</h5>
 					<p class="card-text">{{ post.description }}</p>
-					<a href="#" class="btn btn-primary">Read more...</a>
+					<router-link :to="'/post/'+post.id" class="btn btn-primary">Read more...</router-link>
+					<!-- <a href="" class="btn btn-primary">Read more...</a> -->
 				</div>
 			</div>
 		</div>

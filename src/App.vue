@@ -12,6 +12,9 @@
               <router-link tag='li' :to='{ name: "addNewPost"}' class="nav-item" v-if="isUserLoggedIn">
                 <a class="nav-link">New Post</a>
               </router-link>
+              <router-link tag='li' :to='{ name: "orders"}' class="nav-item" v-if="isUserLoggedIn">
+                <a class="nav-link">Orders</a>
+              </router-link>
               <router-link tag='li' :to='{ name: "register"}' class="nav-item" v-if="!isUserLoggedIn">
                 <a class="nav-link">Register</a>
               </router-link>
