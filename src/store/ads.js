@@ -1,4 +1,5 @@
 import * as fb from 'firebase'
+import { stat } from 'fs';
 
 class Ad {
 	constructor(title, description, ownerId, imgSrc = '', promo = false, id = null){
@@ -12,8 +13,17 @@ class Ad {
 }
 
 export default {
-	state: {},
-	mutations: {},
+	state: {
+		ads: []
+	},
+	mutations: {
+		postsArr (state, payload){
+			state.ads = payload
+		},
+		createPost (state, payload) {
+			state.ads.push(payload)
+		}
+	},
 	actions: {
 		async addNewPost({commit, getters}, payload){
 			commit("setLoading", true)
@@ -26,8 +36,8 @@ export default {
 					payload.imgSrc,
 					payload.promo
 				)
+				
 				const ad = await fb.database().ref("post").push(newPost)
-				// console.log(ad);
 				commit('setLoading', false)
 				commit('createPost', {
 					...newPost,
@@ -38,7 +48,34 @@ export default {
 				commit('setLoading', false)
 				throw error
 			}
+		},
+		async fetchPost ({commit}) {
+			commit("setLoading", true)
+			commit("setError", null)
+			const postResult = []
+			try{
+				const fbPost = await fb.database().ref('post').once('value')
+				const posts = fbPost.val()
+				Object.keys(posts).forEach(key => {
+					const pst = posts[key]
+					postResult.push(new Ad(pst.title, pst.description, pst.ownerId, pst.imgSrc, pst.promo, key))
+				})
+				commit('postsArr', postResult)
+				console.log(postResult)
+				commit('setLoading', false)
+			}catch(error){
+				commit('setLoading', false)
+				commit('setError', error.message)
+				throw error
+			}
 		}
 	},
-	getters: {}
+	getters: {
+		getAds (state) {
+			return state.ads
+		},
+		promoPosts (state) {
+			return state.ads.filter(arr => arr.promo === true)
+		}
+	}
 }

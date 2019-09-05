@@ -88,11 +88,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-body{
-  background: #ccc;
-}
-
-</style>
