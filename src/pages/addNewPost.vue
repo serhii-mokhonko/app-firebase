@@ -22,7 +22,7 @@
 						</div>
 					</div>
 					<div class="custom-control custom-switch">
-						<input type="checkbox" class="custom-control-input" id="customSwitch">
+						<input type="checkbox" class="custom-control-input" id="customSwitch" v-model="newPost.promo">
 						<label class="custom-control-label" for="customSwitch">Promo (add to slider)</label>
 					</div>
 					<button class="btn btn-sm btn-primary mt-2" style="width: 100px" type="button" @click.prevent="sendData">
@@ -42,7 +42,9 @@ export default {
 		return {
 			newPost:{
 				title: null,
-				description: null
+				description: null,
+				promo: false,
+				imgSrc: "https://picsum.photos/id/1080/1024/480"
 			}
 		}
 	},
@@ -53,7 +55,9 @@ export default {
 	},
 	methods: {
 		sendData(){
-			this.$store.dispatch("addNewPost", this.newPost)
+			this.$store.dispatch("addNewPost", this.newPost).
+				then(() => this.$router.push({name: "home"}))
+				.catch(()=>{})
 		}
 	}
 }
