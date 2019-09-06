@@ -1,6 +1,9 @@
 <template>
 <div class="container">
 	<div class="row mt-1">
+		<div class="col-sm-12 text-center" v-if="loading">
+  			<b-spinner label="Spinning"></b-spinner>
+		</div>
 		<div class="col-sm-12">
 		  <b-carousel
 		    id="carousel-fade"
@@ -45,6 +48,9 @@ export default {
 		},
 		promoPosts () {
 			return this.$store.getters.promoPosts
+		},
+		loading () {
+			return this.$store.getters.setLoading
 		}
 	},
 	created () {

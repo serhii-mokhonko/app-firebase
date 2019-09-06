@@ -1,7 +1,7 @@
 import * as fb from 'firebase'
 
 class User {
-	constructor(id){
+	constructor (id){
 		this.id = id
 	}
 }
@@ -41,7 +41,7 @@ export default {
 			commit('setLoading', true)
 			try{
 				const user = await fb.auth().signInWithEmailAndPassword(email, pass)
-				commit('setUser', new User(user.uid))
+				commit('setUser', new User (user.user['uid']))
 			}catch(error){
 				commit('setLoading', false)
 				commit('setError', error.message)

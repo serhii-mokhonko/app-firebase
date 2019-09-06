@@ -1,5 +1,4 @@
 import * as fb from 'firebase'
-import { stat } from 'fs';
 
 class Ad {
 	constructor(title, description, ownerId, imgSrc = '', promo = false, id = null){
@@ -28,6 +27,7 @@ export default {
 		async addNewPost({commit, getters}, payload){
 			commit("setLoading", true)
 			commit("setError", null)
+			
 			try{
 				const newPost = new Ad(
 					payload.title,
