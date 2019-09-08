@@ -18,31 +18,32 @@ export default {
 	mutations: {
 		postsArr (state, payload){
 			state.ads = payload
-		},
-		createPost (state, payload) {
-			state.ads.push(payload)
 		}
 	},
 	actions: {
 		async addNewPost({commit, getters}, payload){
 			commit("setLoading", true)
 			commit("setError", null)
-			
+			const img = payload.img
 			try{
-				const newPost = new Ad(
-					payload.title,
-					payload.description,
-					getters.user.id,
-					payload.imgSrc,
-					payload.promo
-				)
-				
-				const ad = await fb.database().ref("post").push(newPost)
-				commit('setLoading', false)
-				commit('createPost', {
-					...newPost,
-					id: ad.key
+				const storageRef = fb.storage().ref()
+				const dbRef = fb.database().ref("post")
+				const postId = dbRef.push()
+				const imgExt = img.name.slice(img.name.lastIndexOf('.')) // get file extention	
+				await storageRef.child('post/'+ postId + imgExt).put(img) //load file to storage
+				let imgSrc = null
+				await storageRef.child('post/'+ postId + imgExt).getDownloadURL()
+					.then(url => {imgSrc = url})
+					.catch((err) => console.log(err.message))
+				//add data to db
+				postId.set({
+					title: payload.title,
+					description: payload.description,
+					ownerId: getters.user.id,
+					imgSrc,
+					promo: payload.promo
 				})
+				commit('setLoading', false)
 			}catch(error){
 				commit('setError', error.message)
 				commit('setLoading', false)
@@ -61,7 +62,6 @@ export default {
 					postResult.push(new Ad(pst.title, pst.description, pst.ownerId, pst.imgSrc, pst.promo, key))
 				})
 				commit('postsArr', postResult)
-				console.log(postResult)
 				commit('setLoading', false)
 			}catch(error){
 				commit('setLoading', false)

@@ -16,10 +16,11 @@
 						<textarea class="form-control" id="FormBodyTextarea" rows="5" v-model="newPost.description"></textarea>
 					</div>
 					<div class="input-group mb-3">
-						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-						</div>
+						<b-button variant="dark" @click='trigerUpload'>Upload</b-button>
+						<input ref='fileInput' type="file" style="display: none" accept="image/*" @change="onFileChange">
+					</div>
+					<div class="input-group mb-3" v-if='newPost.imgSrc'>
+						<img :src="newPost.imgSrc" style='width: 320px;'>
 					</div>
 					<div class="custom-control custom-switch">
 						<input type="checkbox" class="custom-control-input" id="customSwitch" v-model="newPost.promo">
@@ -37,6 +38,7 @@
 </template>
 
 <script>
+import { read } from 'fs';
 export default {
 	data(){
 		return {
@@ -44,7 +46,8 @@ export default {
 				title: null,
 				description: null,
 				promo: false,
-				imgSrc: "https://picsum.photos/id/1080/1024/480"
+				img: null,
+				imgSrc: ""
 			}
 		}
 	},
@@ -58,6 +61,18 @@ export default {
 			this.$store.dispatch("addNewPost", this.newPost).
 				then(() => this.$router.push({name: "home"}))
 				.catch(()=>{})
+		},
+		trigerUpload () {
+			this.$refs.fileInput.click()
+		},
+		onFileChange (event) {
+			const file = event.target.files[0]
+			const reader = new FileReader()
+			reader.onload = e => {
+				this.newPost.imgSrc = reader.result
+			}
+			reader.readAsDataURL(file)
+			this.newPost.img = file
 		}
 	}
 }
